@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Private Function
+# key: prf
+# --
+private function $1($2)
+{
+    $3
+}

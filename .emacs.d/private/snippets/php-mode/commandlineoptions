@@ -1,0 +1,30 @@
+# -*- mode: snippet -*-
+# name: Command line option parsing
+# key: opts
+# --
+
+function help($name)
+{
+    $name = basename($name);
+    echo <<<EOF
+$name
+
+EOF;
+}
+
+$name = array_shift($argv);
+foreach ($argv as $opt) {
+    switch ($opt) {
+
+    case '--lol':
+        break;
+
+    case '--help':
+        help($name);
+        exit(0);
+
+    default:
+        echo "Unknown option \"$opt\"\n";
+        exit(1);
+    }
+}

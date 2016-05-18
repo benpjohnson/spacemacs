@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Has Method
+# key: has
+# --
+public function has${1:$$(capitalize-word yas-text)}()
+{
+    return count($this->$1);
+}

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: Class
+# key: class
+# --
+class $1
+{
+    public function __construct()
+    {
+
+    }
+}
