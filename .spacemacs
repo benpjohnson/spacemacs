@@ -33,6 +33,8 @@ values."
      version-control
      spell-checking
      git
+     finance
+     python
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -43,7 +45,8 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
      jenkins
-     crontab
+     crontab-mode
+     quickrun
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -99,7 +102,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(zenburn
+   dotspacemacs-themes '(hc-zenburn
                          monokai)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -250,10 +253,10 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  (add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
-  (add-to-list 'default-frame-alist '(region . "#242424"))
-  (set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
-  (set-face-background 'font-lock-comment-face "#1f1f1f")
+;;   (add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
+;;   (add-to-list 'default-frame-alist '(region . "#242424"))
+;;   (set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
+;;   (set-face-background 'font-lock-comment-face "#1f1f1f")
 
  ;; (set-face-background 'org-block-begin-line "#1f1f1f")
  ;; (set-face-background 'org-block-end-line "#1f1f1f")
@@ -278,6 +281,7 @@ you should place your code here."
 (put 'projectile-svn-command 'safe-local-variable 'stringp)
 (setq projectile-enable-caching t)
 (setq flycheck-phpcs-standard "PSR2")
+(setq quickrun-focus-p nil)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -286,12 +290,11 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default))))
+)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
