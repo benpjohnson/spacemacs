@@ -28,6 +28,7 @@ values."
      emacs-lisp
      org
      php
+     sql
      markdown
      syntax-checking
      version-control
@@ -47,6 +48,14 @@ values."
      jenkins
      crontab-mode
      quickrun
+     twig-mode
+     scss-mode
+     dsvn
+     quickrun
+     psvn
+     filesets+
+     helm-filesets
+     helm-cmd-t
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -276,6 +285,50 @@ you should place your code here."
      (C . t)
      (sql . t)
      ))
+
+;;  (global-set-key [(control f)] 'helm-imenu)
+
+  (defun copy-file-name-to-clipboard ()
+    "Copy the current buffer file name to the clipboard."
+    (interactive)
+    (let ((filename (if (equal major-mode 'dired-mode)
+                        default-directory
+                      (buffer-file-name))))
+      (when filename
+        (kill-new filename)
+              (message "Copied buffer file name '%s' to the clipboard." filename))))
+
+
+
+
+  (require 'helm-cmd-t)
+
+  (defvar my-org-folders (list  "~/kb2/work")
+    "my permanent folders for helm-mini")
+
+  ;; PL may be better at this, though really want to open them alongside
+  (defun helm-my-org (&optional arg)
+    "Use C-u arg to work with repos."
+    (interactive "P")
+    (if (consp arg)
+        (call-interactively 'helm-cmd-t-repos)
+      (let ((helm-ff-transformer-show-only-basename nil))
+        (helm :sources (mapcar (lambda (dir)
+                                 (helm-cmd-t-get-create-source-dir dir))
+                               my-org-folders)
+              :candidate-number-limit 20
+              :buffer "*helm-my-org:*"
+              :input "org$ "))))
+
+  ;; TODO: edit bin/ files
+  ;; TODO: fileset? maybe for liquibase files
+
+  ;; Figure out loading knowledge base. Use a custom prefix for my stuff
+  (spacemacs/declare-prefix "o" "o-prefix")
+  (spacemacs/set-leader-keys "oo" 'helm-my-org)
+  (spacemacs/set-leader-keys "os" (lambda() (interactive)(find-file "~/.spacemacs")))
+  (spacemacs/set-leader-keys "oz" (lambda() (interactive)(find-file "~/.zshrc")))
+
   )
 
 (put 'projectile-svn-command 'safe-local-variable 'stringp)
@@ -291,6 +344,7 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
 )
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
