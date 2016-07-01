@@ -76,7 +76,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
@@ -271,18 +271,18 @@ you should place your code here."
  ;; (set-face-background 'org-level-3 "#1f1f1f")
  ;; (python . t)
 
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
-     (sh . t)
-     (js . t)
-     (latex . t)
-     (gnuplot . t)
-     (C . t)
-     (sql . t)
-     ))
-
+;;   (org-babel-do-load-languages
+;;    'org-babel-load-languages
+;;    '((R . t)
+;;      (emacs-lisp . t)
+;;      (sh . t)
+;;      (js . t)
+;;      (latex . t)
+;;      (gnuplot . t)
+;;      (C . t)
+;;      (sql . t)
+;;      ))
+;; 
 ;;  (global-set-key [(control f)] 'helm-imenu)
 
   (defun copy-file-name-to-clipboard ()
@@ -318,9 +318,11 @@ you should place your code here."
               :input "org$ "))))
 
   ;; TODO: edit bin/ files
+
   ;; TODO: fileset? maybe for liquibase files
 
   ;; Figure out loading knowledge base. Use a custom prefix for my stuff
+  ;; Also figure out description for better descriptions in the popup menu
   (spacemacs/declare-prefix "o" "o-prefix")
   (spacemacs/set-leader-keys "oo" 'helm-my-org)
   (spacemacs/set-leader-keys "os" (lambda() (interactive)(find-file "~/.spacemacs")))
