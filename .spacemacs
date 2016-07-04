@@ -27,11 +27,11 @@ values."
      better-defaults
      emacs-lisp
      org
-     php
      markdown
      syntax-checking
      version-control
      spell-checking
+     ansible
      git
      (shell :variables
             shell-default-height 30
@@ -43,7 +43,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
      jenkins
-     crontab
+     ein
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -99,7 +99,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(zenburn
+   dotspacemacs-themes '(hc-zenburn
+                         zenburn
                          monokai)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -252,8 +253,10 @@ you should place your code here."
 
   (add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
   (add-to-list 'default-frame-alist '(region . "#242424"))
-  (set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
+  (set-face-attribute 'region nil :background "#666" :foreground "#1f1f1f")
   (set-face-background 'font-lock-comment-face "#1f1f1f")
+
+  ;; Background: 
 
  ;; (set-face-background 'org-block-begin-line "#1f1f1f")
  ;; (set-face-background 'org-block-end-line "#1f1f1f")
@@ -273,8 +276,14 @@ you should place your code here."
      (C . t)
      (sql . t)
      ))
-  )
 
+  (defun cygwin-shell ()
+    "Run cygwin bash in shell mode."
+    (interactive)
+    (let ((explicit-shell-file-name "C:/tests/things/cygwin/bin/zsh"))
+      (call-interactively 'shell)))
+  )
+ 
 (put 'projectile-svn-command 'safe-local-variable 'stringp)
 (setq projectile-enable-caching t)
 (setq flycheck-phpcs-standard "PSR2")
@@ -288,10 +297,11 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default))))
+    ("bcc6775934c9adf5f3bd1f428326ce0dcd34d743a92df48c128e6438b815b44f" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
