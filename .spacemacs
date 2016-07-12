@@ -27,6 +27,8 @@ values."
      better-defaults
      emacs-lisp
      org
+     php
+     sql
      markdown
      syntax-checking
      version-control
@@ -44,6 +46,15 @@ values."
    dotspacemacs-additional-packages '(
      jenkins
      ein
+     crontab-mode
+     twig-mode
+     scss-mode
+     dsvn
+     quickrun
+     psvn
+     filesets+
+     helm-filesets
+     helm-cmd-t
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -67,7 +78,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
@@ -265,25 +276,71 @@ you should place your code here."
  ;; (set-face-background 'org-level-3 "#1f1f1f")
  ;; (python . t)
 
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
-     (sh . t)
-     (js . t)
-     (latex . t)
-     (gnuplot . t)
-     (C . t)
-     (sql . t)
-     ))
-
   (defun cygwin-shell ()
     "Run cygwin bash in shell mode."
     (interactive)
     (let ((explicit-shell-file-name "C:/tests/things/cygwin/bin/zsh"))
       (call-interactively 'shell)))
-  )
  
+;;   (org-babel-do-load-languages
+;;    'org-babel-load-languages
+;;    '((R . t)
+;;      (emacs-lisp . t)
+;;      (sh . t)
+;;      (js . t)
+;;      (latex . t)
+;;      (gnuplot . t)
+;;      (C . t)
+;;      (sql . t)
+;;      ))
+;; 
+;;  (global-set-key [(control f)] 'helm-imenu)
+
+  (defun copy-file-name-to-clipboard ()
+    "Copy the current buffer file name to the clipboard."
+    (interactive)
+    (let ((filename (if (equal major-mode 'dired-mode)
+                        default-directory
+                      (buffer-file-name))))
+      (when filename
+        (kill-new filename)
+              (message "Copied buffer file name '%s' to the clipboard." filename))))
+
+
+
+
+  (require 'helm-cmd-t)
+
+  (defvar my-org-folders (list  "~/kb2/work")
+    "my permanent folders for helm-mini")
+
+  ;; PL may be better at this, though really want to open them alongside
+  (defun helm-my-org (&optional arg)
+    "Use C-u arg to work with repos."
+    (interactive "P")
+    (if (consp arg)
+        (call-interactively 'helm-cmd-t-repos)
+      (let ((helm-ff-transformer-show-only-basename nil))
+        (helm :sources (mapcar (lambda (dir)
+                                 (helm-cmd-t-get-create-source-dir dir))
+                               my-org-folders)
+              :candidate-number-limit 20
+              :buffer "*helm-my-org:*"
+              :input "org$ "))))
+
+  ;; TODO: edit bin/ files
+
+  ;; TODO: fileset? maybe for liquibase files
+
+  ;; Figure out loading knowledge base. Use a custom prefix for my stuff
+  ;; Also figure out description for better descriptions in the popup menu
+  (spacemacs/declare-prefix "o" "o-prefix")
+  (spacemacs/set-leader-keys "oo" 'helm-my-org)
+  (spacemacs/set-leader-keys "os" (lambda() (interactive)(find-file "~/.spacemacs")))
+  (spacemacs/set-leader-keys "oz" (lambda() (interactive)(find-file "~/.zshrc")))
+
+  )
+
 (put 'projectile-svn-command 'safe-local-variable 'stringp)
 (setq projectile-enable-caching t)
 (setq flycheck-phpcs-standard "PSR2")
