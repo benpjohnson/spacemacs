@@ -33,6 +33,7 @@ values."
      syntax-checking
      version-control
      spell-checking
+     ansible
      git
      yaml
      (shell :variables
@@ -45,6 +46,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
      jenkins
+     ein
      crontab-mode
      twig-mode
      scss-mode
@@ -111,7 +113,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(zenburn
+   dotspacemacs-themes '(hc-zenburn
+                         zenburn
                          monokai)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -264,8 +267,10 @@ you should place your code here."
 
   (add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
   (add-to-list 'default-frame-alist '(region . "#242424"))
-  (set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
+  (set-face-attribute 'region nil :background "#666" :foreground "#1f1f1f")
   (set-face-background 'font-lock-comment-face "#1f1f1f")
+
+  ;; Background: 
 
  ;; (set-face-background 'org-block-begin-line "#1f1f1f")
  ;; (set-face-background 'org-block-end-line "#1f1f1f")
@@ -274,6 +279,12 @@ you should place your code here."
  ;; (set-face-background 'org-level-3 "#1f1f1f")
  ;; (python . t)
 
+  (defun cygwin-shell ()
+    "Run cygwin bash in shell mode."
+    (interactive)
+    (let ((explicit-shell-file-name "C:/tests/things/cygwin/bin/zsh"))
+      (call-interactively 'shell)))
+ 
 ;;   (org-babel-do-load-languages
 ;;    'org-babel-load-languages
 ;;    '((R . t)
@@ -365,7 +376,6 @@ you should place your code here."
   (global-set-key [f5] 'my-php-debug)
 
   )
-
 
 (put 'projectile-svn-command 'safe-local-variable 'stringp)
 (setq projectile-enable-caching t)
