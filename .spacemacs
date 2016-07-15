@@ -34,6 +34,7 @@ values."
      version-control
      spell-checking
      git
+     yaml
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -53,6 +54,8 @@ values."
      filesets+
      helm-filesets
      helm-cmd-t
+     ein
+     geben
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -285,6 +288,21 @@ you should place your code here."
 ;; 
 ;;  (global-set-key [(control f)] 'helm-imenu)
 
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (emacs-lisp . t)
+     (python . t)
+     (sh . t)
+     (js . t)
+     (latex . t)
+     (gnuplot . t)
+     (C . t)
+     (sql . t)
+     (ditaa . t)
+     ))
+
   (defun copy-file-name-to-clipboard ()
     "Copy the current buffer file name to the clipboard."
     (interactive)
@@ -294,9 +312,6 @@ you should place your code here."
       (when filename
         (kill-new filename)
               (message "Copied buffer file name '%s' to the clipboard." filename))))
-
-
-
 
   (require 'helm-cmd-t)
 
@@ -327,10 +342,29 @@ you should place your code here."
   (spacemacs/set-leader-keys "oo" 'helm-my-org)
   (spacemacs/set-leader-keys "os" (lambda() (interactive)(find-file "~/.spacemacs")))
   (spacemacs/set-leader-keys "oz" (lambda() (interactive)(find-file "~/.zshrc")))
+  (spacemacs/set-leader-keys "ob" (lambda() (interactive)(find-file "~/bin")))
+
+  ; Move backup files to tmp so they don't break things like liquibase
+  (setq backup-directory-alist
+        `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t)))
+
+
+  ;; Debug a simple PHP script.
+  ;; Change the session key my-php-54 to any session key text you like
+  (defun my-php-debug ()
+    "Run current PHP script for debugging with geben"
+    (interactive)
+    (call-interactively 'geben)
+    (shell-command
+     (concat "XDEBUG_CONFIG='idekey=emacs' /usr/bin/php "
+             (buffer-file-name) " &"))
+    )
+
+  (global-set-key [f5] 'my-php-debug)
 
   )
-
-
 
 
 (put 'projectile-svn-command 'safe-local-variable 'stringp)
