@@ -59,6 +59,7 @@ values."
      ein
      geben
      ac-php
+     helm-org-rifle
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -331,6 +332,11 @@ you should place your code here."
               :buffer "*helm-my-org:*"
               :input "org$ "))))
 
+
+  (defun rifle-org-mode()
+       (interactive)
+       (helm-org-rifle-directories (list "~/kb2/work")))
+
   ;; TODO: edit bin/ files
 
   ;; TODO: fileset? maybe for liquibase files
@@ -338,7 +344,10 @@ you should place your code here."
   ;; Figure out loading knowledge base. Use a custom prefix for my stuff
   ;; Also figure out description for better descriptions in the popup menu
   (spacemacs/declare-prefix "o" "o-prefix")
-  (spacemacs/set-leader-keys "oo" 'helm-my-org)
+
+  ;; (spacemacs/set-leader-keys "oo" 'helm-my-org)
+  (spacemacs/set-leader-keys "oo" 'rifle-org-mode)
+
   (spacemacs/set-leader-keys "os" (lambda() (interactive)(find-file "~/.spacemacs")))
   (spacemacs/set-leader-keys "oz" (lambda() (interactive)(find-file "~/.zshrc")))
   (spacemacs/set-leader-keys "ob" (lambda() (interactive)(find-file "~/bin")))
