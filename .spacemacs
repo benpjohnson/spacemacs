@@ -58,6 +58,7 @@ values."
      helm-cmd-t
      ein
      geben
+     ac-php
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -300,19 +301,6 @@ you should place your code here."
 ;;  (global-set-key [(control f)] 'helm-imenu)
 
 
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
-     (python . t)
-     (sh . t)
-     (js . t)
-     (latex . t)
-     (gnuplot . t)
-     (C . t)
-     (sql . t)
-     (ditaa . t)
-     ))
 
   (defun copy-file-name-to-clipboard ()
     "Copy the current buffer file name to the clipboard."
@@ -375,6 +363,32 @@ you should place your code here."
 
   (global-set-key [f5] 'my-php-debug)
 
+
+  (add-hook 'php-mode-hook
+            '(lambda ()
+               (auto-complete-mode t)
+               (require 'ac-php)
+               (setq ac-sources  '(ac-source-php ) )
+               (yas-global-mode 1)
+               (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+               (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
+               ))
+
+  ; This fails in daemon mode a lot so moved to the bottom so it breaks less
+  ; things
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (emacs-lisp . t)
+     (python . t)
+     (sh . t)
+     (js . t)
+     (latex . t)
+     (gnuplot . t)
+     (C . t)
+     (sql . t)
+     (ditaa . t)
+     ))
   )
 
 (put 'projectile-svn-command 'safe-local-variable 'stringp)
