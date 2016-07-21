@@ -33,9 +33,11 @@ values."
      syntax-checking
      version-control
      spell-checking
+     ansible
      git
      finance
      python
+     yaml
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -46,6 +48,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
      jenkins
+     ein
      crontab-mode
      quickrun
      twig-mode
@@ -56,6 +59,10 @@ values."
      filesets+
      helm-filesets
      helm-cmd-t
+     ein
+     geben
+     ac-php
+     helm-org-rifle
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -112,6 +119,7 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(hc-zenburn
+                         zenburn
                          monokai)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -262,10 +270,12 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-;;   (add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
-;;   (add-to-list 'default-frame-alist '(region . "#242424"))
-;;   (set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
-;;   (set-face-background 'font-lock-comment-face "#1f1f1f")
+(add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
+(add-to-list 'default-frame-alist '(region . "#242424"))
+(set-face-attribute 'region nil :background "#666" :foreground "#1f1f1f")
+(set-face-background 'font-lock-comment-face "#1f1f1f")
+
+;; Background:
 
  ;; (set-face-background 'org-block-begin-line "#1f1f1f")
  ;; (set-face-background 'org-block-end-line "#1f1f1f")
@@ -274,6 +284,12 @@ you should place your code here."
  ;; (set-face-background 'org-level-3 "#1f1f1f")
  ;; (python . t)
 
+  (defun cygwin-shell ()
+    "Run cygwin bash in shell mode."
+    (interactive)
+    (let ((explicit-shell-file-name "C:/tests/things/cygwin/bin/zsh"))
+      (call-interactively 'shell)))
+ 
 ;;   (org-babel-do-load-languages
 ;;    'org-babel-load-languages
 ;;    '((R . t)
@@ -288,6 +304,8 @@ you should place your code here."
 ;; 
 ;;  (global-set-key [(control f)] 'helm-imenu)
 
+
+
   (defun copy-file-name-to-clipboard ()
     "Copy the current buffer file name to the clipboard."
     (interactive)
@@ -297,9 +315,6 @@ you should place your code here."
       (when filename
         (kill-new filename)
               (message "Copied buffer file name '%s' to the clipboard." filename))))
-
-
-
 
   (require 'helm-cmd-t)
 
@@ -320,6 +335,11 @@ you should place your code here."
               :buffer "*helm-my-org:*"
               :input "org$ "))))
 
+
+  (defun rifle-org-mode()
+       (interactive)
+       (helm-org-rifle-directories (list "~/kb2/work")))
+
   ;; TODO: edit bin/ files
 
   ;; TODO: fileset? maybe for liquibase files
@@ -327,10 +347,59 @@ you should place your code here."
   ;; Figure out loading knowledge base. Use a custom prefix for my stuff
   ;; Also figure out description for better descriptions in the popup menu
   (spacemacs/declare-prefix "o" "o-prefix")
-  (spacemacs/set-leader-keys "oo" 'helm-my-org)
+
+  ;; (spacemacs/set-leader-keys "oo" 'helm-my-org)
+  (spacemacs/set-leader-keys "oo" 'rifle-org-mode)
+
   (spacemacs/set-leader-keys "os" (lambda() (interactive)(find-file "~/.spacemacs")))
   (spacemacs/set-leader-keys "oz" (lambda() (interactive)(find-file "~/.zshrc")))
+  (spacemacs/set-leader-keys "ob" (lambda() (interactive)(find-file "~/bin")))
 
+  ; Move backup files to tmp so they don't break things like liquibase
+  (setq backup-directory-alist
+        `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t)))
+
+  ;; Debug a simple PHP script.
+  ;; Change the session key my-php-54 to any session key text you like
+  (defun my-php-debug ()
+    "Run current PHP script for debugging with geben"
+    (interactive)
+    (call-interactively 'geben)
+    (shell-command
+     (concat "XDEBUG_CONFIG='idekey=emacs' /usr/bin/php "
+             (buffer-file-name) " &"))
+    )
+
+  (global-set-key [f5] 'my-php-debug)
+
+
+  (add-hook 'php-mode-hook
+            '(lambda ()
+               (auto-complete-mode t)
+               (require 'ac-php)
+               (setq ac-sources  '(ac-source-php ) )
+               (yas-global-mode 1)
+               (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+               (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
+               ))
+
+  ; This fails in daemon mode a lot so moved to the bottom so it breaks less
+  ; things
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (emacs-lisp . t)
+     (python . t)
+     (sh . t)
+     (js . t)
+     (latex . t)
+     (gnuplot . t)
+     (C . t)
+     (sql . t)
+     (ditaa . t)
+     ))
   )
 
 (put 'projectile-svn-command 'safe-local-variable 'stringp)
