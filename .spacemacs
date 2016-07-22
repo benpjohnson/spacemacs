@@ -260,12 +260,17 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
 (defun dotspacemacs/user-config (
 )
+
+
+
+
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
 
   (add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
   (add-to-list 'default-frame-alist '(region . "#242424"))
@@ -286,21 +291,8 @@ you should place your code here."
     (interactive)
     (let ((explicit-shell-file-name "C:/tests/things/cygwin/bin/zsh"))
       (call-interactively 'shell)))
- 
-;;   (org-babel-do-load-languages
-;;    'org-babel-load-languages
-;;    '((R . t)
-;;      (emacs-lisp . t)
-;;      (sh . t)
-;;      (js . t)
-;;      (latex . t)
-;;      (gnuplot . t)
-;;      (C . t)
-;;      (sql . t)
-;;      ))
-;; 
-;;  (global-set-key [(control f)] 'helm-imenu)
 
+;;  (global-set-key [(control f)] 'helm-imenu)
 
 
   (defun copy-file-name-to-clipboard ()
@@ -383,63 +375,55 @@ you should place your code here."
                (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
                ))
 
-  ; This fails in daemon mode a lot so moved to the bottom so it breaks less
-  ; things
+
+;;   (defun doc-block()
+;;     "Insert doc block"
+;;     (interactive)
+;;     (let
+;;         (
+;;          (beg (point))
+;;          (is-function (looking-at-p " *\\(\\(protected\\)\\|\\(public\\)\\|\\(protected\\)\\)? *function +\\([0-Z_-]+\\)(\\([^,)]+,?\\)*)" ))
+;;          (is-class (looking-at-p "\s*class" ))
+;;          )
+;;       ( insert-string " /**
+;;  * ")
+;;       (if is-function (insert-string
+;;                        " new function
+;;  *
+;;  * @param string $param
+;;  * @retrun null"))
+;;       (if is-class (insert-string " new class
+;;    * "))
+
+;;       (insert-string "
+;;  * @author ")
+;;       (insert-string (user-real-login-name))
+;;       (insert-string "
+;;  */
+;; ")
+;;       ;; re intent everything
+;;       (forward-line 1)
+;;       (indent-region beg (point))
+
+;;       ;; select the description for easy edit
+;;       (search-backward "/**")
+;;       (forward-line 1)
+;;       (search-forward "* ")
+;;       (set-mark-command nil)
+;;       (move-end-of-line nil)
+;;       (setq deactivate-mark nil)
+;;       )
+;;     )
+;;   (global-set-key "\C-cId" 'doc-block)
+
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((R . t)
      (emacs-lisp . t)
      (python . t)
      (sh . t)
-     (js . t)
-     (latex . t)
-     (gnuplot . t)
-     (C . t)
-     (sql . t)
-     (ditaa . t)
      ))
-
-  (defun doc-block()
-    "Insert doc block"
-    (interactive)
-    (let
-        (
-         (beg (point))
-         (is-function (looking-at-p " *\\(\\(protected\\)\\|\\(public\\)\\|\\(protected\\)\\)? *function +\\([0-Z_-]+\\)(\\([^,)]+,?\\)*)" ))
-         (is-class (looking-at-p "\s*class" ))
-         )
-      ( insert-string " /**
- * ")
-      (if is-function (insert-string
-                       " new function
- *
- * @param string $param
- * @retrun null"))
-      (if is-class (insert-string " new class
-   * "))
-
-      (insert-string "
- * @author ")
-      (insert-string (user-real-login-name))
-      (insert-string "
- */
-")
-      ;; re intent everything
-      (forward-line 1)
-      (indent-region beg (point))
-
-      ;; select the description for easy edit
-      (search-backward "/**")
-      (forward-line 1)
-      (search-forward "* ")
-      (set-mark-command nil)
-      (move-end-of-line nil)
-      (setq deactivate-mark nil)
-      )
-    )
-  (global-set-key "\C-cId" 'doc-block)
-
-
 
   )
 
