@@ -260,18 +260,16 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   )
 
-(defun dotspacemacs/user-config ()
-  "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place your code here."
-
+(defun dotspacemacs/user-config (
+)
 ;; ("hc-zenburn-bg-2"     . "#1f1f1f")
 ;; ("hc-zenburn-bg-1"     . "#1f1f1f")
 ;; ("hc-zenburn-bg-05"    . "#1f1f1f")
 ;; ("hc-zenburn-bg"       . "#1f1f1f")
+  (add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
+  (add-to-list 'default-frame-alist '(region . "#242424"))
+  (set-face-attribute 'region nil :background "#666" :foreground "#1f1f1f")
+  (set-face-background 'font-lock-comment-face "#1f1f1f")
 
 ;; (add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
 ;; (add-to-list 'default-frame-alist '(region . "#242424"))
@@ -291,21 +289,8 @@ you should place your code here."
     (interactive)
     (let ((explicit-shell-file-name "C:/tests/things/cygwin/bin/zsh"))
       (call-interactively 'shell)))
- 
-;;   (org-babel-do-load-languages
-;;    'org-babel-load-languages
-;;    '((R . t)
-;;      (emacs-lisp . t)
-;;      (sh . t)
-;;      (js . t)
-;;      (latex . t)
-;;      (gnuplot . t)
-;;      (C . t)
-;;      (sql . t)
-;;      ))
-;; 
-;;  (global-set-key [(control f)] 'helm-imenu)
 
+;;  (global-set-key [(control f)] 'helm-imenu)
 
 
   (defun copy-file-name-to-clipboard ()
@@ -388,21 +373,56 @@ you should place your code here."
 
                ))
 
-  ; This fails in daemon mode a lot so moved to the bottom so it breaks less
-  ; things
+
+;;   (defun doc-block()
+;;     "Insert doc block"
+;;     (interactive)
+;;     (let
+;;         (
+;;          (beg (point))
+;;          (is-function (looking-at-p " *\\(\\(protected\\)\\|\\(public\\)\\|\\(protected\\)\\)? *function +\\([0-Z_-]+\\)(\\([^,)]+,?\\)*)" ))
+;;          (is-class (looking-at-p "\s*class" ))
+;;          )
+;;       ( insert-string " /**
+;;  * ")
+;;       (if is-function (insert-string
+;;                        " new function
+;;  *
+;;  * @param string $param
+;;  * @retrun null"))
+;;       (if is-class (insert-string " new class
+;;    * "))
+
+;;       (insert-string "
+;;  * @author ")
+;;       (insert-string (user-real-login-name))
+;;       (insert-string "
+;;  */
+;; ")
+;;       ;; re intent everything
+;;       (forward-line 1)
+;;       (indent-region beg (point))
+
+;;       ;; select the description for easy edit
+;;       (search-backward "/**")
+;;       (forward-line 1)
+;;       (search-forward "* ")
+;;       (set-mark-command nil)
+;;       (move-end-of-line nil)
+;;       (setq deactivate-mark nil)
+;;       )
+;;     )
+;;   (global-set-key "\C-cId" 'doc-block)
+
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((R . t)
      (emacs-lisp . t)
      (python . t)
      (sh . t)
-     (js . t)
-     (latex . t)
-     (gnuplot . t)
-     (C . t)
-     (sql . t)
-     (ditaa . t)
      ))
+
   )
 
 (put 'projectile-svn-command 'safe-local-variable 'stringp)
@@ -425,4 +445,5 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
+ '(flycheck-error-list-error ((t (:background "red" :foreground "brightwhite")))))
