@@ -8,8 +8,7 @@ You should not put any user code in this function besides modifying the variable
 values."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
-   ;; `+distribution'. For now available distributions are `spacemacs-base'
-   ;; or `spacemacs'. (default 'spacemacs)
+   ;; `+distribution'. For now available distributions are `spacemacs-base';; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
@@ -261,8 +260,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   )
 
-(defun dotspacemacs/user-config (
-)
+(defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration.
@@ -270,14 +268,18 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-(add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
-(add-to-list 'default-frame-alist '(region . "#242424"))
-(set-face-attribute 'region nil :background "#666" :foreground "#1f1f1f")
-(set-face-background 'font-lock-comment-face "#1f1f1f")
+;; ("hc-zenburn-bg-2"     . "#1f1f1f")
+;; ("hc-zenburn-bg-1"     . "#1f1f1f")
+;; ("hc-zenburn-bg-05"    . "#1f1f1f")
+;; ("hc-zenburn-bg"       . "#1f1f1f")
+
+;; (add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
+;; (add-to-list 'default-frame-alist '(region . "#242424"))
+;; (set-face-attribute 'region nil :background "#666" :foreground "#1f1f1f")
+;; (set-face-background 'font-lock-comment-face "#1f1f1f")
 
 ;; Background:
-
- ;; (set-face-background 'org-block-begin-line "#1f1f1f")
+;; set-face-background 'org-block-begin-line "#1f1f1f")
  ;; (set-face-background 'org-block-end-line "#1f1f1f")
  ;; (set-face-background 'org-level-1 "#1f1f1f")
  ;; (set-face-background 'org-level-2 "#1f1f1f")
@@ -383,6 +385,7 @@ you should place your code here."
                (yas-global-mode 1)
                (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
                (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
+
                ))
 
   ; This fails in daemon mode a lot so moved to the bottom so it breaks less
