@@ -37,6 +37,7 @@ values."
      finance
      python
      yaml
+     octave
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -421,6 +422,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
      (emacs-lisp . t)
      (python . t)
      (sh . t)
+     (octave . t)
      ))
 
   )
