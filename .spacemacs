@@ -261,7 +261,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (defun dotspacemacs/user-config (
 )
 
-
+  ;; Show autocomplete for snippets
+  (setq-default dotspacemacs-configuration-layers
+                '((auto-completion :variables
+                                   auto-completion-enable-snippets-in-popup t)))
 
 
   "Configuration function for user code.
@@ -449,3 +452,5 @@ you should place your code here."
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
  '(flycheck-error-list-error ((t (:background "red" :foreground "brightwhite")))))
+
+; (setq debug-on-error t)
