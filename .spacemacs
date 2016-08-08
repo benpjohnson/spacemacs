@@ -8,8 +8,7 @@ You should not put any user code in this function besides modifying the variable
 values."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
-   ;; `+distribution'. For now available distributions are `spacemacs-base'
-   ;; or `spacemacs'. (default 'spacemacs)
+   ;; `+distribution'. For now available distributions are `spacemacs-base';; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
@@ -35,7 +34,10 @@ values."
      spell-checking
      ansible
      git
+     finance
+     python
      yaml
+     octave
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -48,6 +50,7 @@ values."
      jenkins
      ein
      crontab-mode
+     quickrun
      twig-mode
      scss-mode
      dsvn
@@ -275,14 +278,22 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
 
+;; ("hc-zenburn-bg-2"     . "#1f1f1f")
+;; ("hc-zenburn-bg-1"     . "#1f1f1f")
+;; ("hc-zenburn-bg-05"    . "#1f1f1f")
+;; ("hc-zenburn-bg"       . "#1f1f1f")
   (add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
   (add-to-list 'default-frame-alist '(region . "#242424"))
   (set-face-attribute 'region nil :background "#666" :foreground "#1f1f1f")
   (set-face-background 'font-lock-comment-face "#1f1f1f")
 
-  ;; Background: 
+;; (add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
+;; (add-to-list 'default-frame-alist '(region . "#242424"))
+;; (set-face-attribute 'region nil :background "#666" :foreground "#1f1f1f")
+;; (set-face-background 'font-lock-comment-face "#1f1f1f")
 
- ;; (set-face-background 'org-block-begin-line "#1f1f1f")
+;; Background:
+;; set-face-background 'org-block-begin-line "#1f1f1f")
  ;; (set-face-background 'org-block-end-line "#1f1f1f")
  ;; (set-face-background 'org-level-1 "#1f1f1f")
  ;; (set-face-background 'org-level-2 "#1f1f1f")
@@ -353,7 +364,6 @@ you should place your code here."
   (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
 
-
   ;; Debug a simple PHP script.
   ;; Change the session key my-php-54 to any session key text you like
   (defun my-php-debug ()
@@ -376,6 +386,7 @@ you should place your code here."
                (yas-global-mode 1)
                (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
                (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
+
                ))
 
 
@@ -426,6 +437,7 @@ you should place your code here."
      (emacs-lisp . t)
      (python . t)
      (sh . t)
+     (octave . t)
      ))
 
   )
@@ -433,6 +445,7 @@ you should place your code here."
 (put 'projectile-svn-command 'safe-local-variable 'stringp)
 (setq projectile-enable-caching t)
 (setq flycheck-phpcs-standard "PSR2")
+(setq quickrun-focus-p nil)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -441,14 +454,14 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("bcc6775934c9adf5f3bd1f428326ce0dcd34d743a92df48c128e6438b815b44f" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default))))
+ )
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "#1f1f1f" :foreground "#DCDCCC" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
  '(flycheck-error-list-error ((t (:background "red" :foreground "brightwhite")))))
