@@ -374,6 +374,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
                ))
 
+  (setq-default dotspacemacs-configuration-layers
+                '((python :variables python-test-runner 'pytest)))
 
 ;;   (defun doc-block()
 ;;     "Insert doc block"
@@ -422,9 +424,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
      (emacs-lisp . t)
      (python . t)
      (sh . t)
+
      (octave . t)
      ))
 
+  (with-eval-after-load 'company
+    (add-to-list 'company-backends 'company-ghc))
   )
 
 (put 'projectile-svn-command 'safe-local-variable 'stringp)
