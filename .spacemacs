@@ -63,7 +63,8 @@ values."
      geben
      ac-php
      helm-org-rifle
-                                      )
+     w3m
+     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -263,6 +264,21 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
 (defun dotspacemacs/user-config (
 )
+
+  ;; Show autocomplete for snippets
+  (setq-default dotspacemacs-configuration-layers
+                '((auto-completion :variables
+                                   auto-completion-enable-snippets-in-popup t)))
+
+
+  "Configuration function for user code.
+This function is called at the very end of Spacemacs initialization after
+layers configuration.
+This is the place where most of your configurations should be done. Unless it is
+explicitly specified that a variable should be set before a package is loaded,
+you should place your code here."
+
+
 ;; ("hc-zenburn-bg-2"     . "#1f1f1f")
 ;; ("hc-zenburn-bg-1"     . "#1f1f1f")
 ;; ("hc-zenburn-bg-05"    . "#1f1f1f")
@@ -373,9 +389,22 @@ before packages are loaded. If you are unsure, you should try in setting them in
                (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
 
                ))
+  ;;change default browser for 'browse-url'  to w3m
+  (setq browse-url-browser-function 'w3m-goto-url-new-session)
+
+  ;;change w3m user-agent to android
+  (setq w3m-user-agent "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
+
 
   (setq-default dotspacemacs-configuration-layers
                 '((python :variables python-test-runner 'pytest)))
+
+  (load-file ".emacs.d/private/adhoc/magit-vcsh/magit-vcsh.el")
+
+  ;;quick access hacker news
+  (defun hn ()
+    (interactive)
+    (browse-url "http://news.ycombinator.com"))
 
 ;;   (defun doc-block()
 ;;     "Insert doc block"
@@ -426,6 +455,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
      (sh . t)
 
      (octave . t)
+     (sql . t)
      ))
 
   (with-eval-after-load 'company
@@ -451,7 +481,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#1f1f1f" :foreground "#DCDCCC" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
+ '(default ((t (:inherit nil :stipple nil :background "#1f1f1f" :foreground "#DCDCCC" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 1 :width normal :foundry "default" :family "default"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
+ '(ein:cell-input-area ((t (:background "#1f1f1f"))))
  '(flycheck-error-list-error ((t (:background "red" :foreground "brightwhite")))))
+
+; (setq debug-on-error t)
