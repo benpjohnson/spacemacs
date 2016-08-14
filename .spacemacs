@@ -399,7 +399,7 @@ you should place your code here."
   (setq-default dotspacemacs-configuration-layers
                 '((python :variables python-test-runner 'pytest)))
 
-  (load-file ".emacs.d/private/adhoc/magit-vcsh/magit-vcsh.el")
+  ;; (load-file ".emacs.d/private/adhoc/magit-vcsh/magit-vcsh.el")
 
   ;;quick access hacker news
   (defun hn ()
