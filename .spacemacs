@@ -38,6 +38,7 @@ values."
      python
      yaml
      octave
+     html
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -265,42 +266,37 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (defun dotspacemacs/user-config (
 )
 
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (emacs-lisp . t)
+     (python . t)
+     (sh . t)
+     (octave . t)
+     (sql . t)
+     (sh . t)
+     ))
+
+  ;; Attempt to make w behave like vim by including underscores in words for all modes
+  ;; FIXME: needs to be for all text only modes
+  ;; (add-hook '#'(lambda () ((modify-syntax-entry ?_ "w"))))
+  (add-hook 'python-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  (add-hook 'js2-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  (add-hook 'php-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+  (add-hook 'nxml-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+
   ;; Show autocomplete for snippets
   (setq-default dotspacemacs-configuration-layers
                 '((auto-completion :variables
                                    auto-completion-enable-snippets-in-popup t)))
 
-
-  "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place your code here."
-
-
-;; ("hc-zenburn-bg-2"     . "#1f1f1f")
-;; ("hc-zenburn-bg-1"     . "#1f1f1f")
-;; ("hc-zenburn-bg-05"    . "#1f1f1f")
-;; ("hc-zenburn-bg"       . "#1f1f1f")
+  ;; Custom colours
   (add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
   (add-to-list 'default-frame-alist '(region . "#242424"))
   (set-face-attribute 'region nil :background "#666" :foreground "#1f1f1f")
   (set-face-background 'font-lock-comment-face "#1f1f1f")
 
-;; (add-to-list 'default-frame-alist '(background-color . "#1f1f1f"))
-;; (add-to-list 'default-frame-alist '(region . "#242424"))
-;; (set-face-attribute 'region nil :background "#666" :foreground "#1f1f1f")
-;; (set-face-background 'font-lock-comment-face "#1f1f1f")
-
-;; Background:
-;; set-face-background 'org-block-begin-line "#1f1f1f")
- ;; (set-face-background 'org-block-end-line "#1f1f1f")
- ;; (set-face-background 'org-level-1 "#1f1f1f")
- ;; (set-face-background 'org-level-2 "#1f1f1f")
- ;; (set-face-background 'org-level-3 "#1f1f1f")
- ;; (python . t)
-
+  ;; Windows specific
   (defun cygwin-shell ()
     "Run cygwin bash in shell mode."
     (interactive)
@@ -325,21 +321,6 @@ you should place your code here."
   (defvar my-org-folders (list  "~/kb2/work")
     "my permanent folders for helm-mini")
 
-  ;; PL may be better at this, though really want to open them alongside
-  (defun helm-my-org (&optional arg)
-    "Use C-u arg to work with repos."
-    (interactive "P")
-    (if (consp arg)
-        (call-interactively 'helm-cmd-t-repos)
-      (let ((helm-ff-transformer-show-only-basename nil))
-        (helm :sources (mapcar (lambda (dir)
-                                 (helm-cmd-t-get-create-source-dir dir))
-                               my-org-folders)
-              :candidate-number-limit 20
-              :buffer "*helm-my-org:*"
-              :input "org$ "))))
-
-
   (defun rifle-org-mode()
        (interactive)
        (helm-org-rifle-directories (list "~/kb2/work")))
@@ -352,9 +333,8 @@ you should place your code here."
   ;; Also figure out description for better descriptions in the popup menu
   (spacemacs/declare-prefix "o" "o-prefix")
 
-  ;; (spacemacs/set-leader-keys "oo" 'helm-my-org)
+  ;; Using SPACE-o as custom prefix currently
   (spacemacs/set-leader-keys "oo" 'rifle-org-mode)
-
   (spacemacs/set-leader-keys "os" (lambda() (interactive)(find-file "~/.spacemacs")))
   (spacemacs/set-leader-keys "oz" (lambda() (interactive)(find-file "~/.zshrc")))
   (spacemacs/set-leader-keys "ob" (lambda() (interactive)(find-file "~/bin")))
@@ -386,7 +366,7 @@ you should place your code here."
                (setq ac-sources  '(ac-source-php ) )
                (yas-global-mode 1)
                (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
-               (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
+               (define-key php-mode-map  (kbd "C-t") ac-php-location-stack-back   ) ;go back
 
                ))
   ;;change default browser for 'browse-url'  to w3m
@@ -395,7 +375,7 @@ you should place your code here."
   ;;change w3m user-agent to android
   (setq w3m-user-agent "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
 
-  (load-file ".emacs.d/private/adhoc/magit-vcsh/magit-vcsh.el")
+  ;; (load-file ".emacs.d/private/adhoc/magit-vcsh/magit-vcsh.el")
 
   ;;quick access hacker news
   (defun hn ()
@@ -443,31 +423,54 @@ you should place your code here."
 ;;   (global-set-key "\C-cId" 'doc-block)
 
 
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
-     (python . t)
-     (sh . t)
-     (octave . t)
-     (sql . t)
-     ))
+(defun sh-send-line-or-region-and-step ()
+  (interactive)
+  (sh-send-line-or-region t))
+(defun sh-switch-to-process-buffer ()
+  (interactive)
+  (pop-to-buffer (process-buffer (get-process "shell")) t))
+
+(define-key sh-mode-map [(control ?j)] 'sh-send-line-or-region-and-step)
+(define-key sh-mode-map [(control ?c) (control ?z)] 'sh-switch-to-process-buffer)
+
 
   )
+
+  ;; from: http://stackoverflow.com/questions/6286579/emacs-shell-mode-how-to-send-region-to-shell
+  (defun sh-send-line-or-region (&optional step)
+  (interactive ())
+  (let ((proc (get-process "shell"))
+        pbuf min max command)
+    (unless proc
+      (let ((currbuff (current-buffer)))
+        (shell)
+        (switch-to-buffer currbuff)
+        (setq proc (get-process "shell"))
+        ))
+    (setq pbuff (process-buffer proc))
+    (if (use-region-p)
+        (setq min (region-beginning)
+              max (region-end))
+      (setq min (point-at-bol)
+            max (point-at-eol)))
+    (setq command (concat (buffer-substring min max) "\n"))
+    (with-current-buffer pbuff
+      (goto-char (process-mark proc))
+      (insert command)
+      (move-marker (process-mark proc) (point))
+      ) ;;pop-to-buffer does not work with save-current-buffer -- bug?
+    (process-send-string  proc command)
+    (display-buffer (process-buffer proc) t)
+    (when step
+      (goto-char max)
+      (next-line))
+    ))
+
 
 (put 'projectile-svn-command 'safe-local-variable 'stringp)
 (setq projectile-enable-caching t)
 (setq flycheck-phpcs-standard "PSR2")
 (setq quickrun-focus-p nil)
-
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
