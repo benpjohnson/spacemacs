@@ -374,6 +374,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   ;;change w3m user-agent to android
   (setq w3m-user-agent "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
+  (setq-default dotspacemacs-configuration-layers
+                '((python :variables python-test-runner 'pytest)))
 
   ;; (load-file ".emacs.d/private/adhoc/magit-vcsh/magit-vcsh.el")
 
@@ -433,7 +435,19 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (define-key sh-mode-map [(control ?j)] 'sh-send-line-or-region-and-step)
 (define-key sh-mode-map [(control ?c) (control ?z)] 'sh-switch-to-process-buffer)
 
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (emacs-lisp . t)
+     (python . t)
+     (sh . t)
 
+     (octave . t)
+     (sql . t)
+     ))
+
+  (with-eval-after-load 'company
+    (add-to-list 'company-backends 'company-ghc))
   )
 
   ;; from: http://stackoverflow.com/questions/6286579/emacs-shell-mode-how-to-send-region-to-shell
