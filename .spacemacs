@@ -25,7 +25,6 @@ values."
      auto-completion
      better-defaults
      emacs-lisp
-     org
      php
      sql
      markdown
@@ -39,6 +38,9 @@ values."
      yaml
      octave
      html
+     org
+     myorg
+     myphp
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -63,7 +65,8 @@ values."
      ein
      geben
      ac-php
-     helm-org-rifle
+     php-boris
+     ob-php
      w3m
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -266,16 +269,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (defun dotspacemacs/user-config (
 )
 
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
-     (python . t)
-     (sh . t)
-     (octave . t)
-     (sql . t)
-     (sh . t)
-     ))
 
   ;; Attempt to make w behave like vim by including underscores in words for all modes
   ;; FIXME: needs to be for all text only modes
@@ -378,6 +371,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
                 '((python :variables python-test-runner 'pytest)))
 
   ;; (load-file ".emacs.d/private/adhoc/magit-vcsh/magit-vcsh.el")
+  (load-file ".emacs.d/private/adhoc/php-doc.el")
 
   ;;quick access hacker news
   (defun hn ()
@@ -435,16 +429,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (define-key sh-mode-map [(control ?j)] 'sh-send-line-or-region-and-step)
 (define-key sh-mode-map [(control ?c) (control ?z)] 'sh-switch-to-process-buffer)
 
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
-     (python . t)
-     (sh . t)
-
-     (octave . t)
-     (sql . t)
-     ))
 
   (with-eval-after-load 'company
     (add-to-list 'company-backends 'company-ghc))

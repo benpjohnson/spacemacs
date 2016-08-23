@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: fe
+# key: fe
+# --
+
+foreach (${1: $result} as ${2: $item}) {
+    ${3}
+}

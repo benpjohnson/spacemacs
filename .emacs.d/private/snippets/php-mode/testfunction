@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Test function
+# key: test
+# --
+public function test$1($2)
+{
+    $3
+}
