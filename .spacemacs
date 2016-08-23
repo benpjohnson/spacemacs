@@ -370,7 +370,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default dotspacemacs-configuration-layers
                 '((python :variables python-test-runner 'pytest)))
 
-  ;; (load-file ".emacs.d/private/adhoc/magit-vcsh/magit-vcsh.el")
+  (load-file ".emacs.d/private/adhoc/magit-vcsh.el")
   (load-file ".emacs.d/private/adhoc/php-doc.el")
 
   ;;quick access hacker news
