@@ -79,4 +79,7 @@
      (sh . t)
      (php . t)
      ))
+
+   ;; Who needs security
+   (setq org-confirm-babel-evaluate nil)
 )
