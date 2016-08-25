@@ -470,6 +470,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (setq flycheck-phpcs-standard "PSR2")
 (setq quickrun-focus-p nil)
 
+;; Handle words the same way as vim
+(add-hook 'php-mode #'(lambda () (modify-syntax-entry ?_ "w")))
+
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
