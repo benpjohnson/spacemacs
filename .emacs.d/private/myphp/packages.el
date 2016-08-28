@@ -30,7 +30,10 @@
 ;;; Code:
 
 (defconst php-packages
-  '()
+  '(
+    php-boris
+    ac-php
+    )
   "The list of Lisp packages required by the php layer.
 
 Each entry is either:
