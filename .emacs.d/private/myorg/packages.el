@@ -29,11 +29,11 @@
 ;; FIXME: require org layer
 ;;; Code:
 
-(defconst myorg-packages
+(setq myorg-packages
   '(
     org
     org-rifile
-    ob-php
+    ;; ob-php
     ))
 
 ;;   "The list of Lisp packages required by the myorg layer.
@@ -67,10 +67,23 @@
 
 ;;; packages.el ends here
 
-(defun myorg/post-init-org()
-   ;; Who needs security
-   (setq org-confirm-babel-evaluate nil)
-)
+(defun myorg/init-org()
+
+  ;; Who needs security
+  (setq org-confirm-babel-evaluate nil)
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)
+     (emacs-lisp . t)
+     (python . t)
+     (sh . t)
+     (octave . t)
+     (sql . t)
+     (sh . t)
+     (php . t)
+     ))
+
 
 (defun myorg/init-org-babel ()
   (use-package org-babel
@@ -86,4 +99,4 @@
        (sh . t)
        (php . t)
        ))
-))
+)))

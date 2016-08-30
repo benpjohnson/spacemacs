@@ -22,6 +22,7 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+     org
      auto-completion
      better-defaults
      emacs-lisp
@@ -38,10 +39,9 @@ values."
      yaml
      octave
      html
-     org
-     myorg
      myphp
      phpunit
+     myorg
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -65,8 +65,6 @@ values."
      helm-cmd-t
      ein
      geben
-     ac-php
-     php-boris
      ob-php
      w3m
      )
@@ -267,9 +265,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   )
 
-(defun dotspacemacs/user-config (
-)
-
+(defun dotspacemacs/user-config ()
+  (setq exec-path-from-shell-check-startup-files nil)
 
   ;; Attempt to make w behave like vim by including underscores in words for all modes
   ;; FIXME: needs to be for all text only modes
