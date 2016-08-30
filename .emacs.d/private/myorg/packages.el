@@ -64,22 +64,26 @@
 ;;         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
 
+
 ;;; packages.el ends here
 
 (defun myorg/post-init-org()
-
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
-     (python . t)
-     (sh . t)
-     (octave . t)
-     (sql . t)
-     (sh . t)
-     (php . t)
-     ))
-
    ;; Who needs security
    (setq org-confirm-babel-evaluate nil)
 )
+
+(defun myorg/init-org-babel ()
+  (use-package org-babel
+    :init
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((R . t)
+       (emacs-lisp . t)
+       (python . t)
+       (sh . t)
+       (octave . t)
+       (sql . t)
+       (sh . t)
+       (php . t)
+       ))
+))

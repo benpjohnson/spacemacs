@@ -29,7 +29,7 @@
 
 ;;; Code:
 
-(defconst php-packages
+(defconst myphp-packages
   '()
   "The list of Lisp packages required by the php layer.
 
