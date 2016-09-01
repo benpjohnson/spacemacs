@@ -3,7 +3,7 @@
 #key : setter
 #contributor : Ben Johnson
 # --
-public function set${1:$(capitalize yas-text)}($$1)
+public function set${1:$(upcase-initials yas-text)}($$1)
 {
   $this->$1 = $$1;
 }
