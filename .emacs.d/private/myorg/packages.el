@@ -32,7 +32,7 @@
 (setq myorg-packages
   '(
     org
-    org-rifile
+    helm-org-rifle
     ;; ob-php
     ))
 
@@ -63,19 +63,13 @@
 ;;       - A list beginning with the symbol `recipe' is a melpa
 ;;         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
-
-
-;;; packages.el ends here
-
-(defun myorg/init-org()
-
+(defun myorg/post-init-org()
   ;; Who needs security
   (setq org-confirm-babel-evaluate nil)
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
+   '((emacs-lisp . t)
      (python . t)
      (sh . t)
      (octave . t)
@@ -83,20 +77,6 @@
      (sh . t)
      (php . t)
      ))
+)
 
-
-(defun myorg/init-org-babel ()
-  (use-package org-babel
-    :init
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((R . t)
-       (emacs-lisp . t)
-       (python . t)
-       (sh . t)
-       (octave . t)
-       (sql . t)
-       (sh . t)
-       (php . t)
-       ))
-)))
+;;; packages.el ends here

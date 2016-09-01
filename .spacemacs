@@ -40,7 +40,6 @@ values."
      octave
      html
      myphp
-     phpunit
      myorg
      (shell :variables
             shell-default-height 30
@@ -67,6 +66,7 @@ values."
      geben
      ob-php
      w3m
+     phpunit
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -266,6 +266,20 @@ before packages are loaded. If you are unsure, you should try in setting them in
   )
 
 (defun dotspacemacs/user-config ()
+  (setq projectile-svn-command . "ag -l .")
+  '(safe-local-variable-values (quote ((projectile-svn-command . "find . -type f -print0"))))
+  ;; ;; FIXME: not working in myorg
+  ;; (org-babel-do-load-languages
+  ;;  'org-babel-load-languages
+  ;;  '((emacs-lisp . t)
+  ;;    (python . t)
+  ;;    (sh . t)
+  ;;    (octave . t)
+  ;;    (sql . t)
+  ;;    (sh . t)
+  ;;    (php . t)
+  ;;    ))
+
   (setq exec-path-from-shell-check-startup-files nil)
 
   ;; Attempt to make w behave like vim by including underscores in words for all modes
@@ -484,3 +498,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
  '(flycheck-error-list-error ((t (:background "red" :foreground "brightwhite")))))
 
 ; (setq debug-on-error t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(projectile-svn-command "ag -l"))

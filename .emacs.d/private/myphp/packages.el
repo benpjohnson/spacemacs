@@ -29,8 +29,9 @@
 
 ;;; Code:
 
-(defconst php-packages
+(defconst myphp-packages
   '(
+    php-mode
     php-boris
     ac-php
     ))
