@@ -66,15 +66,14 @@
 
 ;;; packages.el ends here
 
-(defun myorg/init-org()
+(defun myorg/post-init-org()
 
   ;; Who needs security
   (setq org-confirm-babel-evaluate nil)
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((R . t)
-     (emacs-lisp . t)
+   '((emacs-lisp . t)
      (python . t)
      (sh . t)
      (octave . t)
