@@ -29,11 +29,12 @@
 
 ;;; Code:
 
-(defconst myphp-packages
+(setq myphp-packages
   '(
     php-mode
     php-boris
     ac-php
+    phpunit
     ))
 
 (add-hook 'php-mode-hook 'my-php-mode-stuff)
@@ -82,3 +83,7 @@
               (message desc)
             (message "Could not extract function info. Press C-F1 to go the description."))))
     (kill-buffer buf)))
+
+(defun myphp/post-init-php()
+  (php-enable-psr2-coding-style)
+)

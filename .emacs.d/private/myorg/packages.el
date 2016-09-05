@@ -76,6 +76,7 @@
      (sql . t)
      (sh . t)
      (php . t)
+     (js . t)
      ))
 )
 
