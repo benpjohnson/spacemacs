@@ -63,6 +63,7 @@
 ;;       - A list beginning with the symbol `recipe' is a melpa
 ;;         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
+;;; packages.el ends here
 (defun myorg/post-init-org()
   ;; Who needs security
   (setq org-confirm-babel-evaluate nil)
