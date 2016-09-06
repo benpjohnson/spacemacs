@@ -22,6 +22,7 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+     org
      auto-completion
      better-defaults
      emacs-lisp
@@ -38,9 +39,8 @@ values."
      yaml
      octave
      html
-     org
-     myorg
      myphp
+     myorg
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -64,10 +64,10 @@ values."
      helm-cmd-t
      ein
      geben
-     ac-php
-     php-boris
      ob-php
      w3m
+     phpunit
+     ac-php
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -266,9 +266,22 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   )
 
-(defun dotspacemacs/user-config (
-)
+(defun dotspacemacs/user-config ()
+  ;; (setq projectile-svn-command . "ag -l .")
+  ;; '(safe-local-variable-values (quote ((projectile-svn-command . "find . -type f -print0"))))
+  ;; ;; FIXME: not working in myorg
+  ;; (org-babel-do-load-languages
+  ;;  'org-babel-load-languages
+  ;;  '((emacs-lisp . t)
+  ;;    (python . t)
+  ;;    (sh . t)
+  ;;    (octave . t)
+  ;;    (sql . t)
+  ;;    (sh . t)
+  ;;    (php . t)
+  ;;    ))
 
+  (setq exec-path-from-shell-check-startup-files nil)
 
   ;; Attempt to make w behave like vim by including underscores in words for all modes
   ;; FIXME: needs to be for all text only modes
@@ -370,8 +383,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default dotspacemacs-configuration-layers
                 '((python :variables python-test-runner 'pytest)))
 
-  (load-file ".emacs.d/private/adhoc/magit-vcsh.el")
-  (load-file ".emacs.d/private/adhoc/php-doc.el")
+  (load-file "~/.emacs.d/private/adhoc/magit-vcsh.el")
+  (load-file "~/.emacs.d/private/adhoc/php-doc.el")
 
   ;;quick access hacker news
   (defun hn ()
@@ -426,8 +439,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (interactive)
   (pop-to-buffer (process-buffer (get-process "shell")) t))
 
-(define-key sh-mode-map [(control ?j)] 'sh-send-line-or-region-and-step)
-(define-key sh-mode-map [(control ?c) (control ?z)] 'sh-switch-to-process-buffer)
+;; (define-key sh-mode-map [(control ?j)] 'sh-send-line-or-region-and-step)
+;; (define-key sh-mode-map [(control ?c) (control ?z)] 'sh-switch-to-process-buffer)
 
 
   (with-eval-after-load 'company
@@ -470,6 +483,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (setq flycheck-phpcs-standard "PSR2")
 (setq quickrun-focus-p nil)
 
+;; Handle words the same way as vim
+(add-hook 'php-mode #'(lambda () (modify-syntax-entry ?_ "w")))
+
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -482,3 +499,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
  '(flycheck-error-list-error ((t (:background "red" :foreground "brightwhite")))))
 
 ; (setq debug-on-error t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(exec-path-from-shell-arguments (quote ("-l"))))
