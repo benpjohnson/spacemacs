@@ -29,6 +29,7 @@
 ;; FIXME: require org layer
 ;;; Code:
 
+;; FIXME: This is not being used
 (setq myorg-packages
   '(
     org
@@ -78,6 +79,7 @@
      (sh . t)
      (php . t)
      (js . t)
+     (REST . t)
      ))
 )
 

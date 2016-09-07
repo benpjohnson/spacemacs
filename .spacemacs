@@ -258,6 +258,7 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
+   (add-to-list 'load-path "~/.emacs.d/private/local")
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init', before layer configuration
 executes.
@@ -269,17 +270,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (defun dotspacemacs/user-config ()
   ;; (setq projectile-svn-command . "ag -l .")
   ;; '(safe-local-variable-values (quote ((projectile-svn-command . "find . -type f -print0"))))
-  ;; ;; FIXME: not working in myorg
-  ;; (org-babel-do-load-languages
-  ;;  'org-babel-load-languages
-  ;;  '((emacs-lisp . t)
-  ;;    (python . t)
-  ;;    (sh . t)
-  ;;    (octave . t)
-  ;;    (sql . t)
-  ;;    (sh . t)
-  ;;    (php . t)
-  ;;    ))
 
   (setq exec-path-from-shell-check-startup-files nil)
 
@@ -496,7 +486,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
  '(ein:cell-input-area ((t (:background "#1f1f1f"))))
- '(flycheck-error-list-error ((t (:background "red" :foreground "brightwhite")))))
+ '(flycheck-error ((t (:background "brightred" :foreground "black" :underline "black" :weight bold))))
+ '(flycheck-error-list-error ((t (:background "red" :foreground "brightwhite"))))
+ '(flycheck-warning ((t (:background "yellow" :foreground "black" :underline t :weight bold)))))
 
 ; (setq debug-on-error t)
 (custom-set-variables
@@ -505,3 +497,4 @@ before packages are loaded. If you are unsure, you should try in setting them in
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(exec-path-from-shell-arguments (quote ("-l"))))
+

@@ -84,6 +84,6 @@
             (message "Could not extract function info. Press C-F1 to go the description."))))
     (kill-buffer buf)))
 
-(defun myphp/post-init-php()
+(defun myphp/post-init-php-mode()
   (php-enable-psr2-coding-style)
 )
