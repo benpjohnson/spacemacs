@@ -63,7 +63,8 @@ values."
      geben
      ac-php
      helm-org-rifle
-                                      )
+     w3m
+     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -388,7 +389,18 @@ you should place your code here."
                (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
 
                ))
+  ;;change default browser for 'browse-url'  to w3m
+  (setq browse-url-browser-function 'w3m-goto-url-new-session)
 
+  ;;change w3m user-agent to android
+  (setq w3m-user-agent "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
+
+  (load-file ".emacs.d/private/adhoc/magit-vcsh/magit-vcsh.el")
+
+  ;;quick access hacker news
+  (defun hn ()
+    (interactive)
+    (browse-url "http://news.ycombinator.com"))
 
 ;;   (defun doc-block()
 ;;     "Insert doc block"
@@ -438,6 +450,7 @@ you should place your code here."
      (python . t)
      (sh . t)
      (octave . t)
+     (sql . t)
      ))
 
   )
@@ -461,9 +474,10 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#1f1f1f" :foreground "#DCDCCC" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "DejaVu Sans Mono"))))
+ '(default ((t (:foreground "#DCDCCC" :background "#313131"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
+ '(ein:cell-input-area ((t (:background "#1f1f1f"))))
  '(flycheck-error-list-error ((t (:background "red" :foreground "brightwhite")))))
 
 ; (setq debug-on-error t)
