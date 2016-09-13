@@ -435,6 +435,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (with-eval-after-load 'company
     (add-to-list 'company-backends 'company-ghc))
+
+
+  ;; (define-key helm-map (kbd "ESC") 'helm-keyboard-quit)
   )
 
   ;; from: http://stackoverflow.com/questions/6286579/emacs-shell-mode-how-to-send-region-to-shell
@@ -486,9 +489,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
  '(ein:cell-input-area ((t (:background "#1f1f1f"))))
- '(flycheck-error ((t (:background "brightred" :foreground "black" :underline "black" :weight bold))))
  '(flycheck-error-list-error ((t (:background "red" :foreground "brightwhite"))))
  '(flycheck-warning ((t (:background "yellow" :foreground "black" :underline t :weight bold)))))
+ '(flycheck-error ((t (:background "brightred" :foreground "black" :underline "black" :weight bold))))
 
 ; (setq debug-on-error t)
 (custom-set-variables

@@ -79,7 +79,6 @@
      (sh . t)
      (php . t)
      (js . t)
-     (REST . t)
      ))
 )
 

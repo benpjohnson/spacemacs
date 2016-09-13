@@ -18,7 +18,7 @@
 ;;
 ;;
 ;; Briefly, each package to be installed or configured by this layer should be
-;; added to `php-packages'. Then, for each package PACKAGE:
+;; added to `php-packages'.  Then, for each package PACKAGE:
 ;;
 ;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
 ;;   function `php/init-PACKAGE' to load and initialize the package.
@@ -85,5 +85,5 @@
     (kill-buffer buf)))
 
 (defun myphp/post-init-php-mode()
-  (php-enable-psr2-coding-style)
+  (add-hook 'php-mode-hook 'php-enable-psr2-coding-style)
 )
