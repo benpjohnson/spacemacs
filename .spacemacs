@@ -66,9 +66,7 @@ values."
      geben
      ob-php
      w3m
-     phpunit
-     ac-php
-     )
+    )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -258,6 +256,7 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
+   (add-to-list 'load-path "~/.emacs.d/private/local")
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init', before layer configuration
 executes.
@@ -269,17 +268,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (defun dotspacemacs/user-config ()
   ;; (setq projectile-svn-command . "ag -l .")
   ;; '(safe-local-variable-values (quote ((projectile-svn-command . "find . -type f -print0"))))
-  ;; ;; FIXME: not working in myorg
-  ;; (org-babel-do-load-languages
-  ;;  'org-babel-load-languages
-  ;;  '((emacs-lisp . t)
-  ;;    (python . t)
-  ;;    (sh . t)
-  ;;    (octave . t)
-  ;;    (sql . t)
-  ;;    (sh . t)
-  ;;    (php . t)
-  ;;    ))
 
   (setq exec-path-from-shell-check-startup-files nil)
 
@@ -323,13 +311,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
               (message "Copied buffer file name '%s' to the clipboard." filename))))
 
   (require 'helm-cmd-t)
+  (load-file "~/.emacs.d/private/adhoc/magit-vcsh.el")
+  (load-file "~/.emacs.d/private/adhoc/php-doc.el")
 
   (defvar my-org-folders (list  "~/kb2/work")
     "my permanent folders for helm-mini")
 
-  (defun rifle-org-mode()
-       (interactive)
-       (helm-org-rifle-directories (list "~/kb2/work")))
 
   ;; TODO: edit bin/ files
 
@@ -364,17 +351,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (global-set-key [f5] 'my-php-debug)
 
-
-  (add-hook 'php-mode-hook
-            '(lambda ()
-               (auto-complete-mode t)
-               (require 'ac-php)
-               (setq ac-sources  '(ac-source-php ) )
-               (yas-global-mode 1)
-               (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
-               (define-key php-mode-map  (kbd "C-t") ac-php-location-stack-back   ) ;go back
-
-               ))
   ;;change default browser for 'browse-url'  to w3m
   (setq browse-url-browser-function 'w3m-goto-url-new-session)
 
@@ -382,9 +358,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq w3m-user-agent "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
   (setq-default dotspacemacs-configuration-layers
                 '((python :variables python-test-runner 'pytest)))
-
-  (load-file "~/.emacs.d/private/adhoc/magit-vcsh.el")
-  (load-file "~/.emacs.d/private/adhoc/php-doc.el")
 
   ;;quick access hacker news
   (defun hn ()
@@ -445,6 +418,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (with-eval-after-load 'company
     (add-to-list 'company-backends 'company-ghc))
+
+
+  ;; (define-key helm-map (kbd "ESC") 'helm-keyboard-quit)
   )
 
   ;; from: http://stackoverflow.com/questions/6286579/emacs-shell-mode-how-to-send-region-to-shell
@@ -496,7 +472,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
  '(ein:cell-input-area ((t (:background "#1f1f1f"))))
- '(flycheck-error-list-error ((t (:background "red" :foreground "brightwhite")))))
+ '(flycheck-error-list-error ((t (:background "red" :foreground "brightwhite"))))
+ '(flycheck-warning ((t (:background "yellow" :foreground "black" :underline t :weight bold)))))
+ '(flycheck-error ((t (:background "brightred" :foreground "black" :underline "black" :weight bold))))
 
 ; (setq debug-on-error t)
 (custom-set-variables
@@ -505,3 +483,4 @@ before packages are loaded. If you are unsure, you should try in setting them in
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(exec-path-from-shell-arguments (quote ("-l"))))
+

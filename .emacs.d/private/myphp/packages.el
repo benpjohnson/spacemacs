@@ -18,7 +18,7 @@
 ;;
 ;;
 ;; Briefly, each package to be installed or configured by this layer should be
-;; added to `php-packages'. Then, for each package PACKAGE:
+;; added to `php-packages'.  Then, for each package PACKAGE:
 ;;
 ;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
 ;;   function `php/init-PACKAGE' to load and initialize the package.
@@ -29,12 +29,14 @@
 
 ;;; Code:
 
-(setq myphp-packages
+(defvar myphp-packages
   '(
     php-mode
     php-boris
-    ac-php
     phpunit
+    company-php
+    ac-php-core
+    ac-php
     ))
 
 (add-hook 'php-mode-hook 'my-php-mode-stuff)
@@ -84,6 +86,32 @@
             (message "Could not extract function info. Press C-F1 to go the description."))))
     (kill-buffer buf)))
 
-(defun myphp/post-init-php()
-  (php-enable-psr2-coding-style)
+(defun myphp/post-init-php-mode()
+  (add-hook 'php-mode-hook 'php-enable-psr2-coding-style)
+  (setq php-insert-doc-varname-on-var nil)
+  (auto-complete-mode t)
+  (setq ac-sources  '(ac-source-php ) )
+  (yas-global-mode 1)
+  ;; (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+  ;; (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
+)
+
+(defun myphp/init-ac-php-core()
+)
+
+(defun init-php-boris()
+  (use-package php-boris)
+)
+(defun myphp/init-phpunit()
+  (use-package phpunit)
+)
+(defun myphp/init-ac-php()
+  (use-package ac-php-core)
+  (use-package ac-php)
+  (auto-complete-mode t)
+  (setq ac-sources  '(ac-source-php ) )
+  (yas-global-mode 1)
+  (use-package php-mode)
+  ;;(define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+  ;;(define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
 )
