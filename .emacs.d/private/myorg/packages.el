@@ -18,7 +18,7 @@
 ;;
 ;;
 ;; Briefly, each package to be installed or configured by this layer should be
-;; added to `myorg-packages'. Then, for each package PACKAGE:
+;; added to `myorg-packages'.  Then, for each package PACKAGE:
 ;;
 ;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
 ;;   function `myorg/init-PACKAGE' to load and initialize the package.
@@ -80,6 +80,12 @@
      (php . t)
      (js . t)
      ))
+)
+
+(defun myorg/init-helm-org-rifle()
+  (defun rifle-org-mode()
+    (interactive)
+    (helm-org-rifle-directories (list "~/kb2/work")))
 )
 
 ;;; packages.el ends here

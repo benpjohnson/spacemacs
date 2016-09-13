@@ -66,9 +66,7 @@ values."
      geben
      ob-php
      w3m
-     phpunit
-     ac-php
-     )
+    )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -313,13 +311,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
               (message "Copied buffer file name '%s' to the clipboard." filename))))
 
   (require 'helm-cmd-t)
+  (load-file "~/.emacs.d/private/adhoc/magit-vcsh.el")
+  (load-file "~/.emacs.d/private/adhoc/php-doc.el")
 
   (defvar my-org-folders (list  "~/kb2/work")
     "my permanent folders for helm-mini")
 
-  (defun rifle-org-mode()
-       (interactive)
-       (helm-org-rifle-directories (list "~/kb2/work")))
 
   ;; TODO: edit bin/ files
 
@@ -354,17 +351,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (global-set-key [f5] 'my-php-debug)
 
-
-  (add-hook 'php-mode-hook
-            '(lambda ()
-               (auto-complete-mode t)
-               (require 'ac-php)
-               (setq ac-sources  '(ac-source-php ) )
-               (yas-global-mode 1)
-               (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
-               (define-key php-mode-map  (kbd "C-t") ac-php-location-stack-back   ) ;go back
-
-               ))
   ;;change default browser for 'browse-url'  to w3m
   (setq browse-url-browser-function 'w3m-goto-url-new-session)
 
@@ -372,9 +358,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq w3m-user-agent "Mozilla/5.0 (Linux; U; Android 2.3.3; zh-tw; HTC_Pyramid Build/GRI40) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.")
   (setq-default dotspacemacs-configuration-layers
                 '((python :variables python-test-runner 'pytest)))
-
-  (load-file "~/.emacs.d/private/adhoc/magit-vcsh.el")
-  (load-file "~/.emacs.d/private/adhoc/php-doc.el")
 
   ;;quick access hacker news
   (defun hn ()

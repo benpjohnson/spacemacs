@@ -29,12 +29,14 @@
 
 ;;; Code:
 
-(setq myphp-packages
+(defvar myphp-packages
   '(
     php-mode
     php-boris
-    ac-php
     phpunit
+    company-php
+    ac-php-core
+    ac-php
     ))
 
 (add-hook 'php-mode-hook 'my-php-mode-stuff)
@@ -86,4 +88,30 @@
 
 (defun myphp/post-init-php-mode()
   (add-hook 'php-mode-hook 'php-enable-psr2-coding-style)
+  (setq php-insert-doc-varname-on-var nil)
+  (auto-complete-mode t)
+  (setq ac-sources  '(ac-source-php ) )
+  (yas-global-mode 1)
+  ;; (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+  ;; (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
+)
+
+(defun myphp/init-ac-php-core()
+)
+
+(defun init-php-boris()
+  (use-package php-boris)
+)
+(defun myphp/init-phpunit()
+  (use-package phpunit)
+)
+(defun myphp/init-ac-php()
+  (use-package ac-php-core)
+  (use-package ac-php)
+  (auto-complete-mode t)
+  (setq ac-sources  '(ac-source-php ) )
+  (yas-global-mode 1)
+  (use-package php-mode)
+  ;;(define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
+  ;;(define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back   ) ;go back
 )
