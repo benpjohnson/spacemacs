@@ -66,6 +66,8 @@ values."
      geben
      ob-php
      w3m
+     cygwin-mount
+     csharp-mode
     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -263,9 +265,37 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+
+  ;; FIXME: windows specific
+
+  (if (eq system-type 'windows-nt)
+      (progn
+        (add-to-list 'exec-path "C:/Program Files (x86)/Aspell/bin/")
+        (setq ispell-program-name "aspell")
+        (setq ispell-personal-dictionary "C:/tests/things/.ispell")
+        ))
   )
 
 (defun dotspacemacs/user-config ()
+
+  ;; Windows specific
+  (if (eq system-type 'windows-nt)
+      (progn
+        (setq cygwin-mount-cygwin-bin-directory "C:\\tests\\things\\cygwin\\bin")
+        (setq cygwin-mount-cygwin-bin-directory "C:\\tests\\things\\cygwin\\bin")
+        (setq cygwin-root-directory  "C:\\tests\\things\\cygwin")
+        (load-file "~/.emacs.d/private/adhoc/cygwin-setup.el")
+        (setq org-babel-sh-command "C:\\tests\\things\\cygwin\\bin\\bash.exe")
+        ;; FIXME: This is called for some reason
+        ;; (let ((explicit-shell-file-name "C:/tests/things/cygwin/bin/bash.exe")) (call-interactively 'shell))
+    )
+
+    (defun cygwin-shell ()
+      "Run cygwin bash in shell mode."
+      ((interactive "P"))
+      (let ((explicit-shell-file-name "C:/tests/things/cygwin/bin/zsh"))
+        (call-interactively 'shell)))
+    )
   ;; (setq projectile-svn-command . "ag -l .")
   ;; '(safe-local-variable-values (quote ((projectile-svn-command . "find . -type f -print0"))))
 
@@ -290,12 +320,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (set-face-attribute 'region nil :background "#666" :foreground "#1f1f1f")
   (set-face-background 'font-lock-comment-face "#1f1f1f")
 
-  ;; Windows specific
-  (defun cygwin-shell ()
-    "Run cygwin bash in shell mode."
-    (interactive)
-    (let ((explicit-shell-file-name "C:/tests/things/cygwin/bin/zsh"))
-      (call-interactively 'shell)))
 
 ;;  (global-set-key [(control f)] 'helm-imenu)
 
@@ -468,7 +492,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#1f1f1f" :foreground "#DCDCCC" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "outline" :family "Consolas"))))
+ '(default ((t (:foreground "#DCDCCC" :background "#313131"))))
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
  '(ein:cell-input-area ((t (:background "#1f1f1f"))))
@@ -482,5 +506,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(exec-path-from-shell-arguments (quote ("-l"))))
+ '(exec-path-from-shell-arguments (quote ("-l")))
+ '(package-selected-packages
+   (quote
+    (web-mode ledger-mode projectile yaml-mode xterm-color ws-butler window-numbering which-key w3m volatile-highlights vi-tilde-fringe use-package twig-mode toc-org tagedit sx sql-indent spacemacs-theme spaceline smooth-scrolling smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters quickrun quelpa pyvenv pytest pyenv-mode py-yapf psvn popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode pcre2el paradox page-break-lines orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file ob-php neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode jenkins jade-mode info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-filesets helm-descbinds helm-css-scss helm-company helm-cmd-t helm-c-yasnippet helm-ag hc-zenburn-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md geben flycheck-pos-tip flycheck-ledger flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein dsvn drupal-mode diff-hl define-word cython-mode cygwin-mount csharp-mode crontab-mode company-web company-statistics company-quickhelp company-anaconda clean-aindent-mode buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile ansible-doc ansible aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-php ac-ispell))))
 
