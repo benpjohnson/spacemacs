@@ -69,17 +69,19 @@
   ;; Who needs security
   (setq org-confirm-babel-evaluate nil)
 
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (python . t)
-     (sh . t)
-     (octave . t)
-     (sql . t)
-     (sh . t)
-     (php . t)
-     (js . t)
-     ))
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((emacs-lisp . t)
+      (python . t)
+      (sh . t)
+      (octave . t)
+      (sql . t)
+      (sh . t)
+      (php . t)
+      (js . t)
+      ))
+  )
 )
 
 (defun myorg/init-helm-org-rifle()
