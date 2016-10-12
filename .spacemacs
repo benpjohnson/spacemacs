@@ -66,6 +66,7 @@ values."
      geben
      ob-php
      w3m
+     evil-ediff
     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
