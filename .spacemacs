@@ -279,6 +279,11 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
 (defun dotspacemacs/user-config ()
 
+  ;; Playing with org/notes.org
+  ;; need to figure out filtering work from general stuff
+  (setq org-default-notes-file (concat org-directory "/notes.org"))
+  (define-key global-map "\C-cc" 'org-capture)
+
   ;; Windows specific
   (if (eq system-type 'windows-nt)
       (progn
@@ -359,7 +364,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   ; Move backup files to tmp so they don't break things like liquibase
   (setq backup-directory-alist
-        `((".*" . ,temporary-file-directory)))
+        `(("." . ,temporary-file-directory)))
   (setq auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
 
@@ -441,7 +446,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 ;; (define-key sh-mode-map [(control ?c) (control ?z)] 'sh-switch-to-process-buffer)
 
 
-  (with-eval-after-load 'company
+ (with-eval-after-load 'company
     (add-to-list 'company-backends 'company-ghc))
 
 
