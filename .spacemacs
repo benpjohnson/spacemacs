@@ -70,6 +70,7 @@ values."
      cygwin-mount
      csharp-mode
      evil-ediff
+     deft
     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -280,6 +281,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
 (defun dotspacemacs/user-config ()
 
+  (setq deft-extensions '("org"))
+  (setq deft-directory "~/kb2/work/")
+  (setq deft-recursive t)
+
   ;; Playing with org/notes.org
   ;; need to figure out filtering work from general stuff
   (setq org-default-notes-file (concat org-directory "/notes.org"))
@@ -358,7 +363,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (spacemacs/declare-prefix "o" "o-prefix")
 
   ;; Using SPACE-o as custom prefix currently
-  (spacemacs/set-leader-keys "oo" 'rifle-org-mode)
+  (spacemacs/set-leader-keys "oo" 'deft)
   (spacemacs/set-leader-keys "os" (lambda() (interactive)(find-file "~/.spacemacs")))
   (spacemacs/set-leader-keys "oz" (lambda() (interactive)(find-file "~/.zshrc")))
   (spacemacs/set-leader-keys "ob" (lambda() (interactive)(find-file "~/bin")))
