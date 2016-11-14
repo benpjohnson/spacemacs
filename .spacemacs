@@ -17,6 +17,7 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     javascript
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -41,6 +42,7 @@ values."
      html
      myphp
      myorg
+     javascript
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -70,6 +72,7 @@ values."
      csharp-mode
      evil-ediff
      deft
+     itail
     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -275,6 +278,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
         (add-to-list 'exec-path "C:/Program Files (x86)/Aspell/bin/")
         (setq ispell-program-name "aspell")
         (setq ispell-personal-dictionary "C:/tests/things/.ispell")
+        (setq tramp-default-method "sshx")
         ))
   )
 
@@ -296,7 +300,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
         (setq cygwin-mount-cygwin-bin-directory "C:\\tests\\things\\cygwin\\bin")
         (setq cygwin-root-directory  "C:\\tests\\things\\cygwin")
         (load-file "~/.emacs.d/private/adhoc/cygwin-setup.el")
-        (setq org-babel-sh-command "C:\\tests\\things\\cygwin\\bin\\bash.exe")
+        (setq org-babel-sh-command "C:/tests/things/cygwin/bin/bash.exe")
         ;; FIXME: This is called for some reason
         ;; (let ((explicit-shell-file-name "C:/tests/things/cygwin/bin/bash.exe")) (call-interactively 'shell))
     )
@@ -520,5 +524,5 @@ before packages are loaded. If you are unsure, you should try in setting them in
  '(exec-path-from-shell-arguments (quote ("-l")))
  '(package-selected-packages
    (quote
-    (web-mode ledger-mode projectile yaml-mode xterm-color ws-butler window-numbering which-key w3m volatile-highlights vi-tilde-fringe use-package twig-mode toc-org tagedit sx sql-indent spacemacs-theme spaceline smooth-scrolling smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters quickrun quelpa pyvenv pytest pyenv-mode py-yapf psvn popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode pcre2el paradox page-break-lines orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file ob-php neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode jenkins jade-mode info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-filesets helm-descbinds helm-css-scss helm-company helm-cmd-t helm-c-yasnippet helm-ag hc-zenburn-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md geben flycheck-pos-tip flycheck-ledger flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein dsvn drupal-mode diff-hl define-word cython-mode cygwin-mount csharp-mode crontab-mode company-web company-statistics company-quickhelp company-anaconda clean-aindent-mode buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile ansible-doc ansible aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-php ac-ispell))))
+    (tracwiki-mode ox-trac itail wolfram-mode yapfify web-beautify uuidgen powerline py-isort pug-mode spinner org-projectile alert log4e gntp org-download org mwim markdown-mode livid-mode skewer-mode simple-httpd live-py-mode link-hint json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc jinja2-mode hydra parent-mode hide-comnt haml-mode gitignore-mode git-link fringe-helper git-gutter+ git-gutter flyspell-correct-helm flyspell-correct pos-tip flycheck pkg-info epl flx filesets+ eyebrowse evil-visual-mark-mode evil-unimpaired magit magit-popup git-commit with-editor smartparens iedit evil-ediff anzu evil goto-chg undo-tree highlight eshell-z request websocket dumb-jump diminish deft web-completion-data company-tern dash-functional tern company column-enforce-mode coffee-mode bind-map bind-key packed anaconda-mode pythonic helm avy helm-core async yasnippet ac-php-core f xcscope php-mode dash s auto-complete popup package-build web-mode ledger-mode projectile yaml-mode xterm-color ws-butler window-numbering which-key w3m volatile-highlights vi-tilde-fringe use-package twig-mode toc-org tagedit sx sql-indent spacemacs-theme spaceline smooth-scrolling smeargle slim-mode shell-pop scss-mode sass-mode restart-emacs rainbow-delimiters quickrun quelpa pyvenv pytest pyenv-mode py-yapf psvn popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode pcre2el paradox page-break-lines orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file ob-php neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode jenkins jade-mode info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-filesets helm-descbinds helm-css-scss helm-company helm-cmd-t helm-c-yasnippet helm-ag hc-zenburn-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md geben flycheck-pos-tip flycheck-ledger flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav ein dsvn drupal-mode diff-hl define-word cython-mode cygwin-mount csharp-mode crontab-mode company-web company-statistics company-quickhelp company-anaconda clean-aindent-mode buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile ansible-doc ansible aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-php ac-ispell))))
 
