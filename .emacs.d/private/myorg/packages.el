@@ -33,7 +33,6 @@
 (setq myorg-packages
   '(
     org
-    helm-org-rifle
     ;; ob-php
     ))
 
@@ -82,12 +81,6 @@
       (js . t)
       ))
   )
-)
-
-(defun myorg/init-helm-org-rifle()
-  (defun rifle-org-mode()
-    (interactive)
-    (helm-org-rifle-directories (list "~/kb2/work")))
 )
 
 ;;; packages.el ends here

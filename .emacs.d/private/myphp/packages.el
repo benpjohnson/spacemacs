@@ -99,12 +99,6 @@
 (defun myphp/init-ac-php-core()
 )
 
-(defun init-php-boris()
-  (use-package php-boris)
-)
-(defun myphp/init-phpunit()
-  (use-package phpunit)
-)
 (defun myphp/init-ac-php()
   (use-package ac-php-core)
   (use-package ac-php)
