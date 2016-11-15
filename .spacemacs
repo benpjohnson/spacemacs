@@ -72,12 +72,9 @@ values."
      csharp-mode
      evil-ediff
      deft
-<<<<<<< HEAD
      discover
      grunt
-=======
      itail
->>>>>>> 07124333c5ed31aa228b97195f9ecae0043b5f39
     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
